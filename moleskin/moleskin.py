@@ -46,17 +46,18 @@ class Moleskin:
         tic = time.time()
         self.tics[key] = tic
         if not silent:
-            self.green(f'{key} timer started')
+            self.green('{} timer started'.format(key))
         return tic
 
     def toc(self, key='default', silent=False, time_format=":.4f", __is_split=False):
         tic = self.tics[key]
         if tic is None:
-            raise Exception('Need to start the timer first.')
+            self.tic()
+            self.print('Initialize Tic-toc.')
         toc = time.time()
         delta = toc - tic
         if not silent:
-            self.print(f"{key} lap time:", end=' ')
+            self.print("{} lap time:".format(key), end=' ')
             self.green(("{" + time_format + "}s").format(delta))
         if __is_split:
             self.tics[key] = toc
